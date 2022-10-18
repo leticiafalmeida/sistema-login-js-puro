@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <title>Administrar Usuários</title>
+  </head>
+  <!-- <header><img src="assets\logo-uppersoft.png"> -->
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #eff0f3;
+    }
+
+    header {
+      background-color: #174dba;
+      min-height: 50px;
+    }
+
+    header img {
+      max-width: 200px;
+      max-height: 150px;
+      width: auto;
+      height: auto;
+      text-align: center;
+      position: absolute;
+      right: 0;
+      left: 0;
+      margin: auto;
+    }
+
+    .title {
+      font-family: "Helvetica Neue", Helvetica;
+      color: #174dba;
+      padding-left: 40px;
+      font-size: 25px;
+      font-weight: 700;
+      margin-top: 10%;
+    }
+
+    .card-container {
+      margin: 50px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+      color: #b3b8cd;
+      text-align: center;
+      width: 25%;
+      padding: 20px;
+    }
+
+    .round {
+      border: 5px;
+      border-radius: 50%;
+      padding: 7px;
+    }
+
+    .email {
+      font-family: "Helvetica Neue", Helvetica;
+      color: #505050;
+    }
+
+    .name-container {
+      font-family: "Helvetica Neue", Helvetica;
+      color: #174dba;
+      font-weight:700;
+      font-size: 22px;
+      padding: 10px;
+
+    }
+
+    .list-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 50px;
+    }
+
+    .pen {
+      width: 20px;
+      color: #174dba;
+      margin-left: 250px;
+    }
+
+    .show {
+      padding-left: 80%;
+      font-family: "Helvetica Neue", Helvetica;
+      color: #505050;
+    }
+  </style>
+
+  <body>
+    <div class="title">Administrar Usuários</div>
+    <div class="list-container"></div>
+    <div>
+      <p class="show">mostrando 6 de 12</p>
+    </div>
+  </body>
+
+  <script>
+    async function teste() {
+      await fetch("https://reqres.in/api/users?page=2")
+        .then((data) => data.json())
+        .then((json) => {
+          console.log(json.data);
+          const markup = json.data.map((el) => {
+            return `
+          <div class="card-container">
+            <svg class="pen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+            <div class="image-container">
+              <img class="round" src="${el.avatar}">
+            </div>
+             <div class="name-container"> 
+                 <span class="firstName">${el.first_name}</span>
+                 <span class="lastName">${el.last_name}</span>
+                
+             </div> 
+             <p class="email">${el.email}</p>  
+            </div>
+        `;
+          });
+          document.querySelector(".list-container").innerHTML = markup.join("");
+        });
+    }
+
+    teste();
+  </script>
+</html>
